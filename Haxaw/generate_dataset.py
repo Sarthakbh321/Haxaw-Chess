@@ -3,6 +3,7 @@ import chess.pgn
 from board import Board
 
 pgn = open("./data/data.pgn")
+evaluation = pd.read_csv("./data/stockfish.csv")
 
 def generate():
 
@@ -10,6 +11,9 @@ def generate():
 
     while(True):
         game = chess.pgn.read_game(pgn)
+        
+        move_scores = evaluation["MoveScores"][gameIndex]
+        move_scores = list(map(int, move_scores.split()))
 
         if game is None:
             break
@@ -17,9 +21,10 @@ def generate():
         print("Parsing game #%d" % gameIndex)
         gs = Board()
 
-        for move in game.mainline_moves():
+        for move_index, move in enumerate(game.mainline_moves()):
+            centipawn_valuation = move_scores[move_index]
             gs.board.push(move)
-            print(move ,game.headers["Result"])
+            print(move ,game.headers["Result"], centipawn_valuation)
             print(gs.board)
 
         gameIndex += 1
