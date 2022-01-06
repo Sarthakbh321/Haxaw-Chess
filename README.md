@@ -1,2 +1,64 @@
 # Haxaw-Chess
 A Neural Network based chess engine and GUI made with Python and Tensorflow/Keras.
+
+
+## Board Representation
+
+### Pieces
+
+- Kings x2
+- Queens x2
+- Rooks x4
+- Bishops x4
+- Knights x4
+- Pawns x16
+
+### Extra State
+
+- En passant
+- Short castle available? x2
+- Long castle available? x2
+
+### Bitboard Composition
+
+- Total 6 pieces of 2 colors = values upto 12 = 4 bits (12-15th bit unused)
+- Extra states:
+	- **each King**: 2 (castling rights)
+	- **each pawn**: 1 (en passant available)
+- 8x8 = 64 squares = 5 * 64 = 320 bits
+
+### Piece encoding
+
+Each square will have the following values if that piece exists on it:
+
+- Empty: 0
+- King
+	- White:
+		- No castling possible: 1
+		- Short castle possible: 2
+		- Long castle possible: 3
+		- Both castle possible: 4
+	- Black:
+		- No castling possible: 5
+		- Short castle possible: 6
+		- Long castle possible: 7
+		- Both castle possible: 8
+	
+- Queens
+	- White: 9 | black: 10
+- Rooks
+	- White: 11 | black: 12
+- Bishops
+	- White: 13 | black: 14
+- Knights
+	- White: 15 | black: 16
+- Pawns
+	- White:
+		- No en passant available: 17
+		- En passant available: 18
+	- Black:
+		- No en passant available: 19
+		- En passant available: 20
+	
+
+
