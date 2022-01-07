@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -6,7 +7,7 @@ from tensorflow.keras import layers
 
 
 def train_model():
-    dataset = np.load("./dataset/result_based_dataset_100k.npz")
+    dataset = np.load(os.path.dirname(os.path.realpath(__file__)) + "/dataset/result_based_dataset_100k.npz")
 
     X = dataset["arr_0"]
     Y = dataset["arr_1"]
@@ -34,7 +35,7 @@ def train_model():
     
     # prediction = model.predict(X[:50])
 
-    model.save("./neural_weights")
+    model.save(os.path.dirname(os.path.realpath(__file__)) + "/neural_weights")
 
 
 if __name__ == "__main__":

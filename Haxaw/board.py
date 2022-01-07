@@ -6,7 +6,7 @@ from Haxaw.engine import Engine
 class Board():
     def __init__(self, fen=chess.STARTING_FEN):
         self.board = chess.Board(fen)
-        self.engine = Engine()
+        self.engine = None
 
     def convert_to_representation(self):
         
@@ -34,10 +34,18 @@ class Board():
         if(self.board.ep_square != None):
             board_state[self.board.ep_square] = 19
         
-       
+        # Current board state is after the move has been made. So the player will be opposite of current turn
+        if(not self.board.turn == chess.BLACK):
+            for i in range(64):
+                if(board_state[i] != 0):
+                    board_state[i] += 19
+        
         return board_state
 
     def get_best_moves(self):
+        if(self.engine == None):
+            self.engine = Engine()
+
         evals = []
         for move in self.board.legal_moves:
             self.board.push(move)
