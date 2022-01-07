@@ -1,5 +1,6 @@
 import os
 import pygame
+import chess
 from Haxaw.board import Board
 
 pygame.init()
@@ -33,12 +34,44 @@ for symbol in pieces_symbols:
 
 def main():
     gs = Board()
+    
+    current_sq_selected = None
+    previous_clicks = []
 
     while(True):
         for event in pygame.event.get():
             if(event.type == pygame.QUIT):
                 exit(0)
-        
+            elif(event.type == pygame.MOUSEBUTTONDOWN):
+                location = pygame.mouse.get_pos()
+
+                row = BOARD_DIMENSION - location[1]//SQ_SIZE - 1
+                column = location[0]//SQ_SIZE
+                
+                index = row * BOARD_DIMENSION + column
+
+                sq_selected = chess.SQUARES[index]
+                
+                if(sq_selected == current_sq_selected):
+                    current_sq_selected = None
+                    previous_clicks = []
+                else:
+                    current_sq_selected = sq_selected
+                    previous_clicks.append(current_sq_selected)
+
+
+                if(len(previous_clicks) == 2):
+                    try:
+                        move_to_make = gs.board.find_move(from_square=previous_clicks[0], to_square=previous_clicks[1])
+                        gs.board.push(move_to_make)
+                    except ValueError:
+                        pass
+
+                    current_sq_selected = None
+                    previous_clicks = []
+
+
+
         render(screen, gs)
         pygame.display.flip()
         clock.tick(MAX_FPS)
@@ -47,6 +80,7 @@ def main():
 def render(screen, gs):
     draw_board(screen)
     draw_pieces(screen, gs)
+
 
 def draw_board(screen):
     for row in range(BOARD_DIMENSION):
