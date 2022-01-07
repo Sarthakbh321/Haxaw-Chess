@@ -71,24 +71,30 @@ def main():
                         except:
                             pass
 
+                    
+                        current_sq_selected = None
+                        previous_clicks = []
+
                     except ValueError:
-                        pass
+                        current_sq_selected = sq_selected
+                        previous_clicks = [current_sq_selected]
 
-                    current_sq_selected = None
-                    previous_clicks = []
-
+                            
+        render(screen, gs, current_sq_selected)
         
-        render(screen, gs)
-        
-        if(gs.board.outcome() != None):
+        outcome = gs.board.outcome()
+        if(outcome != None):
+            print(outcome.termination)
+            print(outcome.result())
             exit(0)
 
         pygame.display.flip()
         clock.tick(MAX_FPS)
 
 
-def render(screen, gs):
+def render(screen, gs, selected_square):
     draw_board(screen)
+    draw_square_highlights(screen, gs, selected_square)
     draw_pieces(screen, gs)
 
 
@@ -101,6 +107,22 @@ def draw_board(screen):
 
             pygame.draw.rect(screen, color, pygame.Rect(x, y, SQ_SIZE, SQ_SIZE))
 
+
+def draw_square_highlights(screen, gs, selected_square):
+    if(selected_square == None):
+        return
+
+    moves = gs.board.generate_legal_moves(from_mask=chess.BB_SQUARES[selected_square])
+    
+    for move in moves:
+        to_square = move.to_square
+        
+        row = BOARD_DIMENSION - to_square//8 - 1
+        col = to_square%8
+    
+        x,y = col * SQ_SIZE, row * SQ_SIZE
+
+        pygame.draw.rect(screen, pygame.Color("red"), pygame.Rect(x, y, SQ_SIZE, SQ_SIZE))
 
 def draw_pieces(screen, gs):
     for row in range(BOARD_DIMENSION):
