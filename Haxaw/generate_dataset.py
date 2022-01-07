@@ -28,9 +28,9 @@ def generate(limit):
         gs = Board()
 
         for move_index, move in enumerate(game.mainline_moves()):
-            centipawn_valuation = move_scores[move_index]
-
+            
             try:
+                centipawn_valuation = move_scores[move_index]
                 centipawn_valuation = int(centipawn_valuation)
             except Exception:
                 centipawn_valuation = 0
@@ -50,14 +50,14 @@ def generate(limit):
     training_features = np.array(training_features)
     training_labels = np.array(training_labels)
 
-    return training_labels, training_features
+    return training_features, training_labels
         
 
 
 
 if __name__ == "__main__":
     print("Generating dataset...")
-    X, Y = generate(50000)
+    X, Y = generate(100000)
     
     np.savez("dataset/dataset_50k.npz", X, Y)
 
