@@ -29,6 +29,8 @@ A Neural Network based chess engine and GUI made with Python and Tensorflow/Kera
 
 ### Piece encoding
 
+**If current board state is white's turn:**
+
 Each square will have the following values if that piece exists on it:
 
 - Empty: 0
@@ -56,3 +58,5 @@ Each square will have the following values if that piece exists on it:
 	- White: 17 | black: 18
 - Is en passant square: 19
 
+
+**For black's turn, all the values will be increased by 19, except 0 (which represents empty square).**

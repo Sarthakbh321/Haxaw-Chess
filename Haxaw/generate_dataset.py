@@ -32,7 +32,6 @@ def generate(limit):
         gs = Board()
 
         for move_index, move in enumerate(game.mainline_moves()):
-            
             result = result_dict[game.headers["Result"]]
 
             gs.board.push(move)
