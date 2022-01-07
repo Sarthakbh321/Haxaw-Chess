@@ -64,15 +64,25 @@ def main():
                     try:
                         move_to_make = gs.board.find_move(from_square=previous_clicks[0], to_square=previous_clicks[1])
                         gs.board.push(move_to_make)
+                        
+                        try:
+                            computer_move = gs.get_best_moves()[0][1]
+                            gs.board.push(computer_move)
+                        except:
+                            pass
+
                     except ValueError:
                         pass
 
                     current_sq_selected = None
                     previous_clicks = []
 
-
-
+        
         render(screen, gs)
+        
+        if(gs.board.outcome() != None):
+            exit(0)
+
         pygame.display.flip()
         clock.tick(MAX_FPS)
 
