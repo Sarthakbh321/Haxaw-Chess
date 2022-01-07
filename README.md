@@ -53,12 +53,6 @@ Each square will have the following values if that piece exists on it:
 - Knights
 	- White: 15 | black: 16
 - Pawns
-	- White:
-		- No en passant available: 17
-		- En passant available: 18
-	- Black:
-		- No en passant available: 19
-		- En passant available: 20
-	
-
+	- White: 17 | black: 18
+- Is en passant square: 19
 

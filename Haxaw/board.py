@@ -1,10 +1,12 @@
 import chess
-from chess.svg import board
 import numpy as np
+from Haxaw.engine import Engine
+
 
 class Board():
     def __init__(self, fen=chess.STARTING_FEN):
         self.board = chess.Board(fen)
+        self.engine = Engine()
 
     def convert_to_representation(self):
         
@@ -33,3 +35,17 @@ class Board():
             board_state[self.board.ep_square] = 19
 
         return board_state
+
+    def get_best_moves(self):
+        evals = []
+        for move in self.board.legal_moves:
+            self.board.push(move)
+            evaluation = self.engine.evaluate(self)
+
+            evals.append((evaluation, move))
+
+            self.board.pop()
+
+        evals.sort(key=lambda x: x[0], reverse=self.board.turn)
+
+        return evals
