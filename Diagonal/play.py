@@ -1,5 +1,6 @@
+import pygame
 from Haxaw.board import Board
 
-board = Board()
+game_state = Board()
 
-print(board.get_best_moves()[:5])
+print(game_state.get_best_moves()[:5])

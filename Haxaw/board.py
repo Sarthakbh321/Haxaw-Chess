@@ -33,7 +33,8 @@ class Board():
 
         if(self.board.ep_square != None):
             board_state[self.board.ep_square] = 19
-
+        
+       
         return board_state
 
     def get_best_moves(self):

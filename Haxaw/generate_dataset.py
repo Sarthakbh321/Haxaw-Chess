@@ -1,11 +1,12 @@
+import os
 import pandas as pd
 import chess.pgn
-from board import Board
+from Haxaw.board import Board
 import numpy as np
 
 
-pgn = open("./data/data.pgn")
-evaluation = pd.read_csv("./data/stockfish.csv")
+pgn = open(os.path.dirname(os.path.realpath(__file__)) +  "/data/data.pgn")
+evaluation = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) + "/data/stockfish.csv")
 
 result_dict = {"1-0": 1, "1/2-1/2": 0, "0-1": -1}
 
