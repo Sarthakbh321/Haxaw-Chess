@@ -7,6 +7,9 @@ import numpy as np
 pgn = open("./data/data.pgn")
 evaluation = pd.read_csv("./data/stockfish.csv")
 
+result_dict = {"1-0": 1, "1/2-1/2": 0, "0-1": -1}
+
+
 def generate(limit):
     training_features, training_labels = [], []
     gameIndex = 0
@@ -29,17 +32,13 @@ def generate(limit):
 
         for move_index, move in enumerate(game.mainline_moves()):
             
-            try:
-                centipawn_valuation = move_scores[move_index]
-                centipawn_valuation = int(centipawn_valuation)
-            except Exception:
-                centipawn_valuation = 0
+            result = result_dict[game.headers["Result"]]
 
             gs.board.push(move)
             encoded = gs.convert_to_representation()
             
             training_features.append(encoded)
-            training_labels.append(centipawn_valuation)
+            training_labels.append(result)
             positions_parsed += 1
 
         gameIndex += 1
@@ -59,5 +58,5 @@ if __name__ == "__main__":
     print("Generating dataset...")
     X, Y = generate(100000)
     
-    np.savez("dataset/dataset_50k.npz", X, Y)
+    np.savez("dataset/result_based_dataset_100k.npz", X, Y)
 
