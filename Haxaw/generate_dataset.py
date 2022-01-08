@@ -58,5 +58,5 @@ if __name__ == "__main__":
     print("Generating dataset...")
     X, Y = generate(1e5)
     
-    np.savez(os.path.dirname(os.path.realpath(__file__)) + "/dataset/result_based_dataset_1M.npz", X, Y)
+    np.savez(os.path.dirname(os.path.realpath(__file__)) + "/dataset/result_based_dataset_100k.npz", X, Y)
 

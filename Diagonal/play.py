@@ -58,21 +58,17 @@ def main():
                 else:
                     current_sq_selected = sq_selected
                     previous_clicks.append(current_sq_selected)
-
-
+                
+                
                 if(len(previous_clicks) == 2):
                     try:
                         move_to_make = gs.board.find_move(from_square=previous_clicks[0], to_square=previous_clicks[1])
                         gs.board.push(move_to_make)
-                        
                         try:
-                            computer_move = gs.get_best_moves()
-                            print("here")
-                            print(computer_move[:5])
-                            gs.board.push(computer_move[0][1])
-                        except:
-                            pass
-
+                            computer_moves = gs.get_best_moves()
+                            gs.board.push(computer_moves[0][1])
+                        except Exception as e:
+                            print(e)
                     
                         current_sq_selected = None
                         previous_clicks = []
@@ -81,7 +77,6 @@ def main():
                         current_sq_selected = sq_selected
                         previous_clicks = [current_sq_selected]
 
-                            
         render(screen, gs, current_sq_selected)
         
         outcome = gs.board.outcome()
