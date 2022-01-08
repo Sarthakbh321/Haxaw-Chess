@@ -119,8 +119,9 @@ def draw_square_highlights(screen, gs, selected_square):
         col = to_square%8
     
         x,y = col * SQ_SIZE, row * SQ_SIZE
-
-        pygame.draw.rect(screen, pygame.Color("red"), pygame.Rect(x, y, SQ_SIZE, SQ_SIZE))
+        cx, cy = (x + SQ_SIZE/2), (y + SQ_SIZE/2)
+        
+        pygame.draw.circle(screen, pygame.Color("gray30"), (cx, cy), SQ_SIZE//4)
 
 def draw_pieces(screen, gs):
     for row in range(BOARD_DIMENSION):
