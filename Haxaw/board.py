@@ -14,7 +14,7 @@ class Board():
                          "B": 13, "b": 14, "N": 15, "n": 16, "P": 17, "p": 18}
 
 
-        board_state = np.zeros(64, dtype=np.uint8)
+        board_state = np.zeros(65, dtype=np.uint8)
 
         for i in range(64):
             piece = self.board.piece_at(i)
@@ -35,11 +35,11 @@ class Board():
             board_state[self.board.ep_square] = 19
         
         # Current board state is after the move has been made. So the player will be opposite of current turn
-        if(not self.board.turn == chess.BLACK):
-            for i in range(64):
-                if(board_state[i] != 0):
-                    board_state[i] += 19
-        
+        if(not self.board.turn == chess.WHITE):
+            board_state[64] = 0
+        else:
+            board_state[64] = 1
+            
         return board_state
 
     def get_best_moves(self):

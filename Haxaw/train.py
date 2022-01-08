@@ -11,16 +11,16 @@ def train_model():
 
     X = dataset["arr_0"]
     Y = dataset["arr_1"]
-    # X_n = keras.utils.normalize(X, axis=-1)
+    X = keras.utils.normalize(X, axis=-1)
     # Y_n = keras.utils.normalize(Y, axis=-1)[0]
-
+    
     """
     plt.figure()
     plt.hist(Y)
     plt.show()
     exit(0)
     """
-    
+
     model = keras.Sequential([
         layers.Dense(128, input_dim=64, activation="relu"),
         layers.Dense(64, activation="relu"),

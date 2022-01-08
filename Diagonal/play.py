@@ -66,8 +66,10 @@ def main():
                         gs.board.push(move_to_make)
                         
                         try:
-                            computer_move = gs.get_best_moves()[0][1]
-                            gs.board.push(computer_move)
+                            computer_move = gs.get_best_moves()
+                            print("here")
+                            print(computer_move[:5])
+                            gs.board.push(computer_move[0][1])
                         except:
                             pass
 
