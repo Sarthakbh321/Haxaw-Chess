@@ -66,6 +66,7 @@ def main():
                         gs.board.push(move_to_make)
                         try:
                             computer_moves = gs.get_best_moves()
+                            print(computer_moves[:5])
                             gs.board.push(computer_moves[0][1])
                         except Exception as e:
                             print(e)
@@ -138,16 +139,4 @@ if __name__ == "__main__":
     main()
 
 
-"""
-game_state = Board()
-while(game_state.board.outcome() == None):
-    moves = game_state.get_best_moves()
 
-    val, move = moves[0]
-
-    game_state.board.push(move)
-    print(game_state.board)
-    print("----------")
-
-print(game_state.board.result())
-"""

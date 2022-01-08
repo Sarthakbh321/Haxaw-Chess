@@ -50,11 +50,40 @@ class Board():
         for move in self.board.legal_moves:
             self.board.push(move)
             evaluation = self.engine.evaluate(self)
+            piece_valuation = self.get_pieces_valuation() 
+            total_evaluation = 0.7 * evaluation + 0.3 * piece_valuation
 
-            evals.append((evaluation, move))
+            evals.append((total_evaluation, move, piece_valuation))
 
             self.board.pop()
 
         evals.sort(key=lambda x: x[0], reverse=self.board.turn)
 
         return evals
+
+    def get_pieces_valuation(self):
+        values = {"p": 1, "n": 3, "b": 3, "r": 5, "q": 9, "k": 10000}
+        
+        current_value = 0
+        for i in range(64):
+            piece = self.board.piece_at(i)
+            square = chess.SQUARES[i]
+            opponent = self.board.turn
+
+            if(piece != None):
+                symbol = piece.symbol().lower()
+
+                if(piece.color == chess.BLACK):
+                    current_value -= values[symbol]
+                else:
+                    current_value += values[symbol]
+            
+                # if this is your piece and can be taken by the opponent, adjust the valuation
+                if(piece.color != opponent and self.board.is_attacked_by(opponent, square)):
+                    if(piece.color == chess.BLACK):
+                        current_value += values[symbol]
+                    else:
+                        current_value -= values[symbol]
+
+        return current_value
+
