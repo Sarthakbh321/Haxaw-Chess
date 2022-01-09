@@ -45,7 +45,7 @@ class Board():
     def get_best_moves(self):
         if(self.engine == None):
             self.engine = Engine()
-
+        
         evals = []
         for move in self.board.legal_moves:
             self.board.push(move)
@@ -56,7 +56,6 @@ class Board():
             evals.append((total_evaluation, move, piece_valuation))
 
             self.board.pop()
-
         evals.sort(key=lambda x: x[0], reverse=self.board.turn)
 
         return evals
