@@ -66,8 +66,9 @@ def main():
                         gs.board.push(move_to_make)
                         try:
                             computer_moves = gs.get_best_moves()
-                            print(computer_moves[:5])
+                            print(computer_moves)
                             gs.board.push(computer_moves[0][1])
+                            print(gs.get_pieces_valuation())
                         except Exception as e:
                             print(e)
                     
