@@ -50,8 +50,8 @@ class Board():
         for move in self.board.legal_moves:
             self.board.push(move)
             evaluation = self.engine.evaluate(self)
-            piece_valuation = self.black_minimax(chess.BLACK) 
-            total_evaluation = 0.7 * evaluation + 0.3 * piece_valuation 
+            piece_valuation = self.black_minimax() 
+            total_evaluation = 0.7 * evaluation + piece_valuation 
 
             evals.append((total_evaluation, move, piece_valuation))
 
@@ -64,9 +64,11 @@ class Board():
     def get_pieces_valuation(self):
         values = {"p": 1, "n": 3, "b": 3, "r": 5, "q": 9, "k": 10000}
         
+
         current_value = 0
-        for i in range(64):
-            piece = self.board.piece_at(i)
+        piece_map = self.board.piece_map()
+        for i in piece_map:
+            piece = piece_map[i]
             square = chess.SQUARES[i]
             opponent = self.board.turn
 
@@ -89,7 +91,7 @@ class Board():
 
         return current_value
 
-    def black_minimax(self, current_player, depth=2):
+    def black_minimax(self, depth=2):
         outcome = self.board.outcome()
         if(outcome != None):
             if(outcome.result() == "1/2-1/2"): return 0
@@ -99,28 +101,24 @@ class Board():
         if(depth == 0):
             return self.get_pieces_valuation()
         
+        current_player = self.board.turn
         if(current_player == chess.WHITE):
             value = -float("inf")
 
             for move in self.board.legal_moves:
                 self.board.push(move)
-                value = max(value, self.black_minimax(chess.BLACK, depth-1))
-                print("WHITE", value)
-                print(self.board)
+                value = max(value, self.black_minimax(depth-1))
                 self.board.pop()
-
+           
             return value
         else:
             value = float("inf")
 
             for move in self.board.legal_moves:
                 self.board.push(move)
-                value = min(value, self.black_minimax(chess.WHITE, depth-1))
-                print("BLACK", value)
-                print(self.board)
-
+                value = min(value, self.black_minimax(depth-1))
                 self.board.pop()
-
+            
             return value
 
 
