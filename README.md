@@ -1,62 +1,19 @@
 # Haxaw-Chess
-A Neural Network based chess engine and GUI made with Python and Tensorflow/Keras.
+
+**Haxaw**: Haxaw is the Neural Network based chess engine made with Python and Tensorflow/Keras. Also uses the [python-chess](https://github.com/niklasf/python-chess) library. (WIP: *Implement minimax and alpha-beta pruning algorithms*)
+
+**Diagonal**: Diagonal is the GUI written with pygame. Currently you can play games as white against Haxaw.
 
 
-## Board Representation
-
-### Pieces
-
-- Kings x2
-- Queens x2
-- Rooks x4
-- Bishops x4
-- Knights x4
-- Pawns x16
-
-### Extra State
-
-- En passant
-- Short castle available? x2
-- Long castle available? x2
-
-### Bitboard Composition
-
-- Total 6 pieces of 2 colors = values upto 12 = 4 bits (12-15th bit unused)
-- Extra states:
-	- **each King**: 2 (castling rights)
-	- **each pawn**: 1 (en passant available)
-- 8x8 = 64 squares = 5 * 64 = 320 bits
-
-### Piece encoding
-
-**If current board state is white's turn:**
-
-Each square will have the following values if that piece exists on it:
-
-- Empty: 0
-- King
-	- White:
-		- No castling possible: 1
-		- Short castle possible: 2
-		- Long castle possible: 3
-		- Both castle possible: 4
-	- Black:
-		- No castling possible: 5
-		- Short castle possible: 6
-		- Long castle possible: 7
-		- Both castle possible: 8
-	
-- Queens
-	- White: 9 | black: 10
-- Rooks
-	- White: 11 | black: 12
-- Bishops
-	- White: 13 | black: 14
-- Knights
-	- White: 15 | black: 16
-- Pawns
-	- White: 17 | black: 18
-- Is en passant square: 19
+## To run:
 
 
-**For black's turn, all the values will be increased by 19, except 0 (which represents empty square).**
+	git clone https://github.com/Sarthakbh321/Haxaw-Chess.git  
+	cd Haxaw-Chess
+	python3 -m Diagonal.play
+
+
+
+## Documentation
+
+Read more about the Haxaw engine [here](Haxaw/README.md).
