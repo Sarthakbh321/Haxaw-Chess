@@ -46,18 +46,20 @@ class Board():
         if(self.engine == None):
             self.engine = Engine()
         
+        self.engine.states_parsed = 0
         evals = []
         for move in self.board.legal_moves:
             self.board.push(move)
             evaluation = self.engine.evaluate(self)
-            piece_valuation = self.engine.black_minimax(self) 
+            piece_valuation = self.engine.black_minimax(self, -float("inf"), float("inf")) 
             total_evaluation = 0.7 * evaluation + piece_valuation 
 
             evals.append((total_evaluation, move, piece_valuation))
 
             self.board.pop()
         evals.sort(key=lambda x: x[0], reverse=self.board.turn)
-
+        
+        print("States evaluated: ", self.engine.states_parsed)
         return evals
 
     def get_pieces_valuation(self):
