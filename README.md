@@ -1,6 +1,6 @@
 # Haxaw-Chess
 
-**Haxaw**: Haxaw is the Neural Network based chess engine made with Python and Tensorflow/Keras. Also uses the [python-chess](https://github.com/niklasf/python-chess) library. Currently very bad and slow. (WIP: *Implement minimax and alpha-beta pruning algorithms*)
+**Haxaw**: Haxaw is the Neural Network based chess engine made with Python and Tensorflow/Keras. Also uses the [python-chess](https://github.com/niklasf/python-chess) library. Currently very bad and slow. (WIP: *Needs major speed and evaluation upgrades*)
 
 **Diagonal**: Diagonal is the GUI written with pygame. Currently you can play games as white against Haxaw.
 

@@ -1,4 +1,5 @@
 import chess
+import time
 import numpy as np
 from Haxaw.engine import Engine
 
@@ -45,7 +46,8 @@ class Board():
     def get_best_moves(self):
         if(self.engine == None):
             self.engine = Engine()
-        
+       
+        start = time.time()
         self.engine.states_parsed = 0
         evals = []
         for move in self.board.legal_moves:
@@ -60,6 +62,7 @@ class Board():
         evals.sort(key=lambda x: x[0], reverse=self.board.turn)
         
         print("States evaluated: ", self.engine.states_parsed)
+        print("--- %s seconds ---" % (time.time() - start))
         return evals
 
     def get_pieces_valuation(self):
